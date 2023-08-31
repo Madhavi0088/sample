@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="11c8a644-a872-4885-829e-c73e215c730e" >
+		<http:listener-connection host="0.0.0.0" port="8088" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="a693c252-bd93-407d-a76b-4cecf4aa59ed" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="Madhavik@145" database="database" />
+	</db:config>
+	<configuration doc:name="Configuration" doc:id="5ff03728-6b30-4f7d-868a-f123f77c874a" defaultErrorHandler-ref="error-configError_Handler" />
+	<flow name="error-handlingFlow" doc:id="6ca117da-6cd1-4f33-ab1a-7c6406165139" >
+		<http:listener doc:name="Listener" doc:id="5ef2d42c-a901-42cf-9c75-1b3e07e49821" config-ref="HTTP_Listener_config" path="error"/>
+		<logger level="INFO" doc:name="Logger" doc:id="9265021c-7d63-4f34-a3b2-397c805fe541" message="flow started"/>
+		<set-variable value="5000" doc:name="Set Variable" doc:id="a824bc96-1758-4464-8996-fc34e0804a21" variableName="amount"/>
+		<choice doc:name="Choice" doc:id="c8d8290d-6d3b-4682-8b78-766da60b58f8" >
+			<when expression="#[payload.order_amount &lt;= vars.amount]">
+				<ee:transform doc:name="Transform Message" doc:id="38e57d3d-5f60-40a6-9b93-9b9d0ce55fa5" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "message": "please enter valid details"
+}
+]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<raise-error doc:name="Raise error" doc:id="ccc6a73d-7682-40bb-b0fd-2059e2437cca" type="in: INSUFFIENT-FUNDS" description="you don't have sufficient amount"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="4b5d75a3-f113-4f56-b999-66b137dd4945" message="#[payload]"/>
+	</flow>
+</mule>
