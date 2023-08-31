@@ -37,5 +37,9 @@ output application/json
 		</choice>
 		<logger level="INFO" doc:name="Logger" doc:id="4b5d75a3-f113-4f56-b999-66b137dd4945" message="#[payload]"/>
 		<logger level="INFO" doc:name="Logger" doc:id="6dfbeebb-e2ac-4059-8b9b-06d6579e563d" message="flow endend"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7c0c65bc-f5aa-405c-b85b-b936dbf01dd3" message="flow started"/>
+		<logger level="INFO" doc:name="Logger" doc:id="50d962bb-479d-4ae8-93d2-278da81b0cd8" message="one"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ef9162d6-b16f-47f8-9261-42424aa0a1a9" message="two"/>
+		<logger level="INFO" doc:name="Logger" doc:id="da434062-8af6-4d00-af81-5c4a910a4a26" message="three"/>
 	</flow>
 </mule>
