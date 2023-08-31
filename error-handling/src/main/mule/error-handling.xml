@@ -16,6 +16,10 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="error-handlingFlow" doc:id="6ca117da-6cd1-4f33-ab1a-7c6406165139" >
 		<http:listener doc:name="Listener" doc:id="5ef2d42c-a901-42cf-9c75-1b3e07e49821" config-ref="HTTP_Listener_config" path="error"/>
 		<logger level="INFO" doc:name="Logger" doc:id="9265021c-7d63-4f34-a3b2-397c805fe541" message="flow started"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7c0c65bc-f5aa-405c-b85b-b936dbf01dd3" message="flow started" />
+		<logger level="INFO" doc:name="Logger" doc:id="50d962bb-479d-4ae8-93d2-278da81b0cd8" message="one" />
+		<logger level="INFO" doc:name="Logger" doc:id="ef9162d6-b16f-47f8-9261-42424aa0a1a9" message="two" />
+		<logger level="INFO" doc:name="Logger" doc:id="da434062-8af6-4d00-af81-5c4a910a4a26" message="three" />
 		<set-variable value="5000" doc:name="Set Variable" doc:id="a824bc96-1758-4464-8996-fc34e0804a21" variableName="amount"/>
 		<choice doc:name="Choice" doc:id="c8d8290d-6d3b-4682-8b78-766da60b58f8" >
 			<when expression="#[payload.order_amount &lt;= vars.amount]">
@@ -37,9 +41,5 @@ output application/json
 		</choice>
 		<logger level="INFO" doc:name="Logger" doc:id="4b5d75a3-f113-4f56-b999-66b137dd4945" message="#[payload]"/>
 		<logger level="INFO" doc:name="Logger" doc:id="6dfbeebb-e2ac-4059-8b9b-06d6579e563d" message="flow endend"/>
-		<logger level="INFO" doc:name="Logger" doc:id="7c0c65bc-f5aa-405c-b85b-b936dbf01dd3" message="flow started"/>
-		<logger level="INFO" doc:name="Logger" doc:id="50d962bb-479d-4ae8-93d2-278da81b0cd8" message="one"/>
-		<logger level="INFO" doc:name="Logger" doc:id="ef9162d6-b16f-47f8-9261-42424aa0a1a9" message="two"/>
-		<logger level="INFO" doc:name="Logger" doc:id="da434062-8af6-4d00-af81-5c4a910a4a26" message="three"/>
 	</flow>
 </mule>
